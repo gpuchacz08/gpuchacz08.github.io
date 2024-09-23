@@ -4,32 +4,35 @@ div {
 }
 body {
     margin: 0px;
+    display: grid;
 }
 .header {
-    background-color: grey;
+    background-color: #2e8bc0;
     text-align: center;
 }
 .navbar {
-    background-color: black;
+    background-color: #0c2d48;
     color: white;
     text-align: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 a {
     color: white;
     text-decoration: none;
 }
 .s1 {
-    background-color: gray;
+    background-color: #2e8bc0;
     text-align: center;
 }
 .s2 {
-    background-color: darkgray;
+    background-color: #b1d4e0;
     text-align: center;
 }
 .grid {
     padding: 0px;
     display: grid;
-    grid-template-columns: 30% 70%;
+    grid-template-columns: 1fr 2fr;
 }
 img {
     width: 100px;
@@ -37,7 +40,7 @@ img {
     border: 2px black solid; margin: 5px;
 }
 .footer {
-    background-color: black;
+    background-color: #0c2d48;
     text-align: center;
     color: white;
 }

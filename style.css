@@ -20,17 +20,16 @@ a {
 }
 .s1 {
     background-color: gray;
-    flex-basis: 40%;
     text-align: center;
 }
 .s2 {
     background-color: darkgray;
     text-align: center;
-    flex-basis: 60%;
 }
-.flex {
+.grid {
     padding: 0px;
-    display: flex;
+    display: grid;
+    grid-template-columns: 30% 70%;
 }
 img {
     width: 100px;
@@ -43,7 +42,7 @@ img {
     color: white;
 }
 @media (max-width: 900px) {
-    .flex {
-        flex-direction: column;
+    .grid {
+        grid-template-columns: auto;
     }
 }

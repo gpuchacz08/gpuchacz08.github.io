@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filtracja Listy</title>
+</head>
+<body>
+    <h1>Filtruj Listę</h1>
+    <input type="text" id="filterInput" placeholder="Wpisz tekst do filtrowania" onkeyup="filterList()">
+    <ol id="itemList">
+        <li>Jabłko</li>
+        <li>Banana</li>
+        <li>Pomarańcza</li>
+        <li>Gruszka</li>
+        <li>Arbuz</li>
+    </ol>
+
+    <script>
+        function filterList() {
+            const input = document.getElementById("filterInput").value.toLowerCase();
+            const listItems = document.getElementById("itemList").getElementsByTagName("li");
+
+            for (let i = 0; i < listItems.length; i++) {
+                const itemText = listItems[i].textContent || listItems[i].innerText;
+                if (itemText.toLowerCase().includes(input)) {
+                    listItems[i].style.display = "";
+                } else {
+                    listItems[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

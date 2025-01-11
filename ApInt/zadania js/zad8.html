@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gra w Zgadnij Liczbę</title>
+</head>
+<body>
+    <h1>Gra w Zgadnij Liczbę</h1>
+    <p>Spróbuj odgadnąć liczbę od 1 do 100. Masz 10 prób.</p>
+    <input type="number" id="guess" min="1" max="100" placeholder="Wpisz liczbę">
+    <button onclick="makeGuess()">Sprawdź</button>
+    <p id="result"></p>
+    <p id="attempts"></p>
+
+    <script>
+        let randomNumber = Math.floor(Math.random() * 100) + 1;
+        let attemptsLeft = 10;
+
+        function makeGuess() {
+            const userGuess = parseInt(document.getElementById("guess").value);
+            const result = document.getElementById("result");
+            const attempts = document.getElementById("attempts");
+
+            if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
+                result.textContent = "Proszę wprowadzić liczbę między 1 a 100!";
+                return;
+            }
+
+            attemptsLeft--;
+
+            if (userGuess === randomNumber) {
+                result.textContent = "Gratulacje, wygrałeś! Odgadłeś liczbę!";
+                attempts.textContent = "";
+                reset();
+                return;
+            } else if (userGuess > randomNumber) {
+                result.textContent = "Liczba jest mniejsza! Spróbuj ponownie.";
+            } else {
+                result.textContent = "Liczba jest większa! Spróbuj ponownie.";
+            }
+
+            if (attemptsLeft === 0) {
+                result.textContent = "Przegrałeś! Prawidłowa liczba to " + randomNumber;
+                attempts.textContent = "";
+                reset();
+            } else {
+                attempts.textContent = "Pozostało prób: " + attemptsLeft;
+            }
+        }
+        function reset() {
+            randomNumber = Math.floor(Math.random() * 100) + 1;
+            attemptsLeft = 10;
+        }
+    </script>
+</body>
+</html>

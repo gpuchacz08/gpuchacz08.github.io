@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schemat spłaty pożyczki</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Schemat spłaty pożyczki</h1>
+
+    <form id="loan-form">
+        <label for="amount">Kwota pożyczki (PLN):</label>
+        <input type="number" id="amount" placeholder="Podaj kwotę pożyczki" required>
+
+        <label for="rate">Roczna stopa procentowa (%):</label>
+        <input type="number" id="rate" placeholder="Podaj roczną stopę procentową" required>
+
+        <label for="months">Okres kredytowania (w miesiącach):</label>
+        <input type="number" id="months" placeholder="Podaj okres kredytowania" required>
+
+        <button type="submit">Oblicz schemat spłaty</button>
+    </form>
+
+    <table id="schedule" style="display:none;">
+        <thead>
+            <tr>
+                <th>Miesiąc</th>
+                <th>Rata kapitałowa (PLN)</th>
+                <th>Odsetki (PLN)</th>
+                <th>Łączna rata (PLN)</th>
+                <th>Pozostała kwota pożyczki (PLN)</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <p id="overpayment" style="display:none;"></p>
+
+    <script>
+        document.getElementById('loan-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const amount = parseFloat(document.getElementById('amount').value);
+            const rate = parseFloat(document.getElementById('rate').value) / 100 / 12;
+            const months = parseInt(document.getElementById('months').value);
+            if (isNaN(amount) || isNaN(rate) || isNaN(months) || amount <= 0 || rate <= 0 || months <= 0) {
+                alert('Proszę podać prawidłowe wartości.');
+                return;
+            }
+            const principalPayment = amount / months;
+            let remainingLoan = amount;
+            let totalOverpayment = 0;
+            const scheduleBody = document.getElementById('schedule').querySelector('tbody');
+            scheduleBody.innerHTML = '';
+            for (let month = 1; month <= months; month++) {
+                const interest = remainingLoan * rate;
+                const totalPayment = principalPayment + interest;
+                remainingLoan -= principalPayment;
+                totalOverpayment += interest;
+                scheduleBody.innerHTML += `
+                    <tr>
+                        <td>${month}</td>
+                        <td>${principalPayment.toFixed(2)}</td>
+                        <td>${interest.toFixed(2)}</td>
+                        <td>${totalPayment.toFixed(2)}</td>
+                        <td>${remainingLoan.toFixed(2)}</td>
+                    </tr>
+                `;
+            }
+            document.getElementById('schedule').style.display = 'table';
+            document.getElementById('overpayment').style.display = 'block';
+            document.getElementById('overpayment').textContent = `Nadpłata pożyczki wynosi: ${totalOverpayment.toFixed(2)} PLN.`;
+        });
+    </script>
+</body>
+</html>

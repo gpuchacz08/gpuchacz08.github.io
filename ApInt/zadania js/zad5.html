@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obliczanie BMI</title>
+</head>
+<body>
+    <h1>Obliczanie wskaźnika masy ciała (BMI)</h1>
+
+    <!-- Formularz do obliczania BMI -->
+    <form id="bmi-form">
+        <label for="weight">Waga (kg):</label>
+        <input type="number" id="weight" placeholder="Podaj swoją wagę" required>
+        <label for="height">Wzrost (cm):</label>
+        <input type="number" id="height" placeholder="Podaj swój wzrost" required>
+        <button type="submit">Oblicz BMI</button>
+    </form>
+    <p id="bmi-result"></p>
+
+    <script>
+        document.getElementById('bmi-form').addEventListener('submit', function (event) {
+            
+            event.preventDefault();
+
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseFloat(document.getElementById('height').value) / 100;
+
+            if (!isNaN(weight) && !isNaN(height) && weight > 0 && height > 0) {
+                const bmi = weight / (height * height);
+
+                let interpretation;
+                if (bmi < 18.5) {
+                    interpretation = 'Niedowaga';
+                } else if (bmi >= 18.5 && bmi < 24.9) {
+                    interpretation = 'Waga prawidłowa';
+                } else if (bmi >= 25 && bmi < 29.9) {
+                    interpretation = 'Nadwaga';
+                } else {
+                    interpretation = 'Otyłość';
+                }
+
+                document.getElementById('bmi-result').textContent = `Twoje BMI wynosi: ${bmi.toFixed(2)} (${interpretation})`;
+            } else {
+                document.getElementById('bmi-result').textContent = 'Proszę podać prawidłowe wartości wagi i wzrostu.';
+            }
+        });
+    </script>
+</body>
+</html>

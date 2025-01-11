@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analiza temperatur zimowych</title>
+</head>
+<body>
+    <h1>Analiza temperatur zimowych</h1>
+    <p>Podaj dane o dziennych temperaturach w miesiącach zimowych:</p>
+    <button onclick="calculate()">Oblicz</button>
+    <p id="frosts"></p>
+    <p id="longestFreeze"></p>
+
+    <script>
+        function calculate() {
+        const temperatures = [-48, -46, 48, 27, -20, -35, 43, 4, 9, 10, 41, -46, -4, 0, -38, -49, 25, -46, -48, -23, -25, -22, 12, 38, 19, -20, 26, 4, 19, 23, 26, -41, 4, -13, -9, -11, -7, 38, 27, 41, 14, -35, -38, -44, -44, -22, -24, 29, -32, 41, 7, -25, 3, 27, -45, 10, 48, 8, -34, -49, 17, -16, 41, -11, -50, -6, -34, 20, 14, -18, 39, -28, -33, -27, -48, 40, -37, -44, 0, 46, 36, -34, -50, 8, -3, 26, 40, 10, -36, 24];
+        let frosts = 0;
+        let longestFreeze = 0;
+        let currentFreeze = 0;
+
+        for (let i = 0; i < temperatures.length - 1; i++) {
+            if (temperatures[i] > 0 && temperatures[i + 1] < 0) {
+                frosts++;
+            }
+            if (temperatures[i] < 0) {
+                currentFreeze++;
+                if (currentFreeze > longestFreeze) {
+                    longestFreeze = currentFreeze;
+                }
+            } else {
+                currentFreeze = 0;
+            }
+        }
+
+        document.getElementById("frosts").textContent = "Liczba przymrozków: " + frosts;
+        document.getElementById("longestFreeze").textContent = "Najdłuższy okres mrozu: " + longestFreeze + " dni";
+}
+
+    </script>
+</body>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>zad4</title>
+</head>
+<body>
+    <h1>Obliczanie prowizji bankowej</h1>
+
+    <form id="bank-form">
+        <label for="transfer-amount">Kwota do przelania (PLN):</label>
+        <input type="number" id="transfer-amount" placeholder="Podaj kwotę" required>
+        <button type="submit">Oblicz prowizję</button>
+    </form>
+    <p id="bank-result"></p>
+
+    <script>
+
+        document.getElementById('bank-form').addEventListener('submit', function (event) {
+            
+            event.preventDefault();
+
+            const transferAmount = parseFloat(document.getElementById('transfer-amount').value);
+
+            if (!isNaN(transferAmount) && transferAmount > 0) {
+                let fee = transferAmount * 0.01;
+
+                if (fee < 10) {fee = 10;}
+                if (fee > 250) {fee = 250;}
+
+                document.getElementById('bank-result').textContent = `Prowizja wynosi: ${fee.toFixed(2)} PLN`;
+            } else {
+                document.getElementById('bank-result').textContent = 'Proszę podać prawidłową kwotę do przelania.';
+            }
+        });
+    </script>
+</body>
+</html>

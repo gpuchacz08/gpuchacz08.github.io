@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>zad2</title>
+</head>
+<body>
+    <h1>Kalkulator podatków</h1>
+    <form id="tax-form">Roczny zarobek (PLN):</label>
+        <input type="number" id="income" placeholder="Wpisz miesięczne zarobki" required>
+
+        <button type="submit">Kalkulator podatków</button>
+    </form>
+
+    <h2>Wyik:</h2>
+    <p id="result"></p>
+
+    <script>
+        document.getElementById('tax-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const income = parseFloat(document.getElementById('income').value);
+
+            if (isNaN(income) || income <= 0) {
+                document.getElementById('result').textContent = "Wpisz poprawną kwotę.";
+                return;
+            }
+
+            const taxFreeAmount = 30000; // Kwota wolna od podatku
+            const lowerRate = 0.12; // 12% dla dochodu do 120 000 PLN
+            const higherRate = 0.32; // 32% dla dochodu powyżej 120 000 PLN
+            const lowerThreshold = 120000; // Próg podatkowy
+
+            let taxableIncome = income - taxFreeAmount;
+            let tax = 0;
+
+            if (taxableIncome > 0) {
+                if (taxableIncome <= lowerThreshold) {
+                    tax = taxableIncome * lowerRate;
+                } else {
+                    tax = (lowerThreshold * lowerRate) + ((taxableIncome - lowerThreshold) * higherRate);
+                }
+            }
+
+            const remainingAmount = income - tax;
+
+            document.getElementById('result').textContent = 
+                `Łączna kwota podatku: ${tax.toFixed(2)} zł | Pozostały zarobek: ${remainingAmount.toFixed(2)} zł`;
+        });
+    </script>
+</body>
+</html>

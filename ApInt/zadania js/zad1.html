@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>zad1</title>
+</head>
+<body>
+    <h1>Kalkulator depozytu</h1>
+    <form id="deposit-form">
+        <label for="amount">Wielkość depozytu</label>
+        <input type="number" id="amount" placeholder="WIelkość depozytu" required>
+
+        <button type="submit">Oblicz</button>
+    </form>
+
+    <h2>Wynik:</h2>
+    <p id="result"></p>
+
+    <script>
+        document.getElementById('deposit-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const amount = parseFloat(document.getElementById('amount').value);
+
+            if (isNaN(amount) || amount <= 0) {
+                document.getElementById('result').textContent = "Wpisz poprawną kwotę.";
+                return;
+            }
+
+            const annualRate = 4.5; // stopa procentowa
+            const depositDuration = 1.5; // długość depozytu
+
+            const totalInterest = (amount * annualRate * depositDuration) / 100;
+            const totalDays = depositDuration * 365;
+
+            const dailyIncome = totalInterest / totalDays;
+
+            document.getElementById('result').textContent = `dzienny zarobek z depozytu to ${dailyIncome.toFixed(2)} zł.`;
+        });
+    </script>
+</body>
+</html>

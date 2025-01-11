@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>zad3</title>
+</head>
+<body>
+    <h1>zad3</h1>
+
+    <h2>1. Obwód kwadratu</h2>
+    <form id="square-form">
+        <label for="square-side">Wpisz długość boku kwadratu (a):</label>
+        <input type="number" id="square-side" required>
+        <button type="submit">Oblicz Obwód</button>
+    </form>
+    <p id="square-result"></p>
+
+    <h2>2. Objętość sześcianu i pole jego powierzchni bocznej</h2>
+    <form id="cube-form">
+        <label for="cube-edge">Krawędź sześcianu (a):</label>
+        <input type="number" id="cube-edge" required>
+        <button type="submit">Oblicz objętość i pole powierzchni bocznej</button>
+    </form>
+    <p id="cube-result"></p>
+
+    <h2>3. Długość i pole okręgu</h2>
+    <form id="circle-form">
+        <label for="circle-radius">Promień okręgu (r):</label>
+        <input type="number" id="circle-radius" required>
+        <button type="submit">Oblicz długość i pole</button>
+    </form>
+    <p id="circle-result"></p>
+
+    <h2>4. Gęstość matieriału</h2>
+    <form id="density-form">
+        <label for="volume">Objętość (V):</label>
+        <input type="number" id="volume" required>
+        <label for="mass">Mass (m):</label>
+        <input type="number" id="mass" required>
+        <button type="submit">Oblicz masę</button>
+    </form>
+    <p id="density-result"></p>
+
+    <h2>5. Gęstość populacji</h2>
+    <form id="population-form">
+        <label for="population">Populacja:</label>
+        <input type="number" id="population" required>
+        <label for="area">Powierzchnia (km²):</label>
+        <input type="number" id="area" required>
+        <button type="submit">Oblicz gęstość</button>
+    </form>
+    <p id="population-result"></p>
+
+    <h2>6. Preciwprostokątna</h2>
+    <form id="triangle-form">
+        <label for="angle-a">kąt A:</label>
+        <input type="number" id="angle-a"  required>
+        <label for="angle-b">kąt B:</label>
+        <input type="number" id="angle-b" required>
+        <label for="adjacent">Przyprostokątna:</label>
+        <input type="number" id="adjacent" required>
+        <button type="submit">Oblicz przeciw prostokątną</button>
+    </form>
+    <p id="triangle-result"></p>
+
+    <h2>7. Funckja y=(a^2+10)/sqrt(a^2 + 1)</h2>
+    <form id="function-form">
+        <label for="input-a">a:</label>
+        <input type="number" id="input-a" required>
+        <button type="submit">Oblicz y</button>
+    </form>
+    <p id="function-result"></p>
+
+    <script>
+
+        document.getElementById('square-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const side = parseFloat(document.getElementById('square-side').value);
+            if (!isNaN(side) && side > 0) {
+                const perimeter = 4 * side;
+                document.getElementById('square-result').textContent = `Obwód: ${perimeter}`;
+            } else {
+                document.getElementById('square-result').textContent = 'Wpisz poprawną wartość.';
+            }
+        });
+
+        document.getElementById('cube-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const edge = parseFloat(document.getElementById('cube-edge').value);
+            if (!isNaN(edge) && edge > 0) {
+                const volume = Math.pow(edge, 3);
+                const surfaceArea = 6 * Math.pow(edge, 2);
+                document.getElementById('cube-result').textContent = `Objętość: ${volume}, Pole powierzchni: ${surfaceArea}`;
+            } else {
+                document.getElementById('cube-result').textContent = 'Wpisz poprawną wartość.';
+            }
+        });
+
+        document.getElementById('circle-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const radius = parseFloat(document.getElementById('circle-radius').value);
+            if (!isNaN(radius) && radius > 0) {
+                const circumference = 2 * Math.PI * radius;
+                const area = Math.PI * Math.pow(radius, 2);
+                document.getElementById('circle-result').textContent = `Długość: ${circumference.toFixed(2)}, Pole: ${area.toFixed(2)}`;
+            } else {
+                document.getElementById('circle-result').textContent = 'Wpisz poprawną wartość.';
+            }
+        });
+
+        document.getElementById('density-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const volume = parseFloat(document.getElementById('volume').value);
+            const mass = parseFloat(document.getElementById('mass').value);
+            if (!isNaN(volume) && !isNaN(mass) && volume > 0 && mass > 0) {
+                const density = mass / volume;
+                document.getElementById('density-result').textContent = `Gęstość: ${density.toFixed(2)}`;
+            } else {
+                document.getElementById('density-result').textContent = 'Wpisz poprawną wartość.';
+            }
+        });
+
+        document.getElementById('population-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const population = parseFloat(document.getElementById('population').value);
+            const area = parseFloat(document.getElementById('area').value);
+            if (!isNaN(population) && !isNaN(area) && population > 0 && area > 0) {
+                const density = population / area;
+                document.getElementById('population-result').textContent = `Gęstość populacji: ${density.toFixed(2)} ludzi/km²`;
+            } else {
+                document.getElementById('population-result').textContent = 'Wpisz poprawną wartość.';
+            }
+        });
+
+        document.getElementById('triangle-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const angleA = parseFloat(document.getElementById('angle-a').value);
+            const angleB = parseFloat(document.getElementById('angle-b').value);
+            const adjacent = parseFloat(document.getElementById('adjacent').value);
+            if (!isNaN(angleA) && !isNaN(angleB) && !isNaN(adjacent) && angleA > 0 && angleB > 0 && adjacent > 0 && (angleA + angleB === 90)) {
+                const hypotenuse = adjacent / Math.cos(angleA * Math.PI / 180);
+                document.getElementById('triangle-result').textContent = `Przeciwprostokątna: ${hypotenuse.toFixed(2)}`;
+            } else {
+                document.getElementById('triangle-result').textContent = 'Proszę wpisać poprawną wartość (A + B = 90°)';
+            }
+        });
+
+        document.getElementById('function-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const a = parseFloat(document.getElementById('input-a').value);
+            if (!isNaN(a)) {
+                const y = (Math.pow(a, 2) + 10) / Math.sqrt(Math.pow(a, 2) + 1);
+                document.getElementById('function-result').textContent = `y: ${y.toFixed(2)}`;
+            } else {
+                document.getElementById('function-result').textContent = 'Wpisz poprawną wartość.';
+            }
+        });
+    </script>
+</body>
+</html>
